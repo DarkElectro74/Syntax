@@ -6,7 +6,7 @@ average = (algebra + geography + physics) / 3
 console.log(average);
 //2 задача
 let myName = 'Heisenberg'; //:D
-message = "Привет, мир! Меня зовут "+ myName;
+message = (`Привет, мир! Меня зовут ${myName}`);
 console.log(message);
 // 3 задача
 let x = 2;
