@@ -11,22 +11,20 @@ function calculateQuadraticEquation(){
 };
 
 function getResult(a,b,c){
-  let x;
+  let result = '';
   let d = Math.pow(b, 2) - 4 * a * c;
       
   if (d < 0){
-    console.log('Корней нет');
+	result = null;
+    console.log(result);
   } else if (d === 0){
-    x = (-b) / (2 * a);
-    console.log(x);
-    return x;
-  } else {
-    let x1, x2;  
-    x1 = (-b + Math.sqrt(d)) / (2 * a); 
-    x2 = (-b - Math.sqrt(d)) / (2 * a);
-    console.log('Первый корень' + x1 + ' Второй корень' + x2);
-    return [x1, x2];
+    result = (-b + Math.sqrt(d)) / (2 * a);
+    console.log(result);
+  } else if (d > 0){ 
+    result = [(-b + Math.sqrt(d)) / (2 * a),(-b - Math.sqrt(d)) / (2 * a)];
+    console.log(result);
   };
+  return result;
 };
 // 2 задача
 function calculateAverageRating(){
@@ -45,10 +43,9 @@ function getAverageMark(marks){
   };
 
   for (let i = 0; i < marks.length; i ++){
-  sum = sum + marks[i];  
+  sum += marks[i];  
   };
-  averageMark = sum / marks.length;
-  return averageMark;
+  return sum / marks.length;
 };
 //3 задача
 function calculateDrinkTask(){
@@ -60,7 +57,9 @@ function calculateDrinkTask(){
 
 function askDrink(name,dateOfBirthday){
 	let yearOfBirth = dateOfBirthday.getFullYear();
-	let result = ((new Date().getFullYear() - yearOfBirth) >= 18) ? `Не желаете ли олд-фэшн, ${name}?` : `Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`;
+	let FullYear = new Date().getFullYear();
+	let DiffetenceAge = FullYear - yearOfBirth;
+	let result = (DiffetenceAge >= 18) ? `Не желаете ли олд-фэшн, ${name}?` : `Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`;
 	console.log(result);
 	return result;
 };
