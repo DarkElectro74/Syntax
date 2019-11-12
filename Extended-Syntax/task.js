@@ -11,21 +11,19 @@ function calculateQuadraticEquation(){
 };
 
 function getResult(a,b,c){
-  let result = '';
-  let d = Math.pow(b, 2) - 4 * a * c;
-      
-  if (d < 0){
-	result = null;
-    console.log(result);
-  } else if (d === 0){
-    result = (-b + Math.sqrt(d)) / (2 * a);
-    console.log(result);
-  } else if (d > 0){ 
-    result = [(-b + Math.sqrt(d)) / (2 * a),(-b - Math.sqrt(d)) / (2 * a)];
-    console.log(result);
-  };
-  return result;
-};
+    let d = Math.pow(b,2) - 4 * a * c;
+    if (d < 0){
+        let x = [];
+        return x; 
+    } else if(d == 0){
+        let x = - b / (2 *a);
+        return x;
+    } else {
+        let x = (- b + Math.sqrt(d))/ (2 *a);
+        let x2 = (- b - Math.sqrt(d))/ (2 *a);
+        return [x, ` x2= ${x2}`];   
+    }
+}
 // 2 задача
 function calculateAverageRating(){
     let marks = window.marks.value.split("").map(Number).filter((n)=> !isNaN(n) && n > 0);
