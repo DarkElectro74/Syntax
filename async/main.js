@@ -1,20 +1,25 @@
-const setDailyRhythm = (wakeUpTime, bedTime) => {
-	let hours = (new Date().getHours()).toString();
-	let minutes = (new Date().getMinutes()).toString();
-	const sec = new Date().getSeconds();
+function setAlarm(time, callback) {
+	return (currentTime) => {
+		currentTime = new Date();
+		let hours = new Date().getHours();
+		let minutes = new Date().getMinutes();
+		const sec = new Date().getSeconds();
+		
+		if (hours < 10) {
+			hours = '0' + hours;
+		} else if (minutes < 10) {
+			minutes = '0' + minutes;
+		}
+		currentTime = hours + ':' + minutes;
+		if (currentTime === time) {
+			callback();
+		}
+	}
+}
 
-	if (hours.length < 2){hours = "0" + hours};
-	if (minutes.length < 2){minutes = "0" + minutes};
-	
-	const currentTime = (hours + `:` + minutes).toString();
-	
-	console.log(`Текущее время: ${currentTime}`);
-	 
-	if (wakeUpTime === currentTime && sec == 0){alert(`Дорое утро! Пора вставать!`)};
-	if (bedTime === currentTime && sec == 0){alert(`Дорый вечер! Пора ложиться спать!`)};
-	 
-	setTimeout(setDailyRhythm, 1000, wakeUpTime, bedTime);	 	 
-};
+function setDailyRhythm(wakeUpTime, bedTime) {
+	setInterval(setAlarm(wakeUpTime, () => alert('Доброе утро!')), 1000);
+	setInterval(setAlarm(bedTime, () => alert('Доброй ночи!')), 1000);
+}
 
-setDailyRhythm ("11:54", "11:55");
-setDailyRhythm ("07:39", "23:11");
+setDailyRhythm('07:00', '14:29');
