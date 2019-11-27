@@ -14,18 +14,18 @@ function memoize(exp, limit){
 
     let arrayOfResults = [];
 
-    function fn(a, ...b){
+    function fn(...a){
         if (arrayOfResults.length === 0){
-            results.args =  [a, ...b];
-            results.result = exp( a, ...b);
+            results.args =  [a];
+            results.result = exp(...a);
             arrayOfResults.push(results);
             return console.log(results.result);
         }else{    
-            if (compareArrays(results.args, [a, ...b])){
+            if (compareArrays(results.args, [a])){
                 return console.log('Результат берется из памяти \n' + results.result);
             }else{ 
-                results.args =  [a, ...b];
-                results.result = exp(a, ...b);
+                results.args =  [a];
+                results.result = exp(...a);
                 arrayOfResults.push(results);
                 return console.log('Функция вызвана не из памяти\n' + results.result); 
             };
