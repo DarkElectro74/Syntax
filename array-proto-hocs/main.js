@@ -1,48 +1,48 @@
-function compareArrays(arr1, arr2){
-    if (arr1.length === arr2.length){
-        return arr1.every((item, index) => item === arr2[index]);
-    }else{
-        return false;
-    };    
-};       
+function sum(...args) { 
+  let sum = 0;
+  console.log(sum);
+  console.log(args);
+  for (let arg of args) sum += arg;
+  console.log(sum);
+  return sum;
+}
 
-function memoize(exp, limit){
-    let results = {
-        args : [], 
-        result : []
-    };
+function compareArrays(arr1, arr2) {
+  return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
+}
 
-    let arrayOfResults = [];
+console.log(compareArrays([8, 1, 2], [8, 1, 2]));
 
-    function fn(...a){
-        if (arrayOfResults.length === 0){
-            //results.args =  [a];
-            results.result = exp(...a);
-            arrayOfResults.push(results);
-            return console.log(results.result);
-        }else{    
-            if (compareArrays(results.args, [a])){
-                return console.log('Результат берется из памяти \n' + results.result);
-            }else{ 
-               // results.args =  [a];
-                results.result = exp(...a);
-                arrayOfResults.push(results);
-                return console.log('Функция вызвана не из памяти\n' + results.result); 
-            };
-        };    
-    };
+function memoize(fn, limit) {
+  let memory = [];
+  return function (...args) {
+    
+    let output = memory.find(argument => compareArrays(argument.arg, args));
 
-    return fn;
-};
+    if (output) {
+      console.log(`Ответ найден в памяти = ${output.result}`);
+      return output.result;
+    }
 
-const sumfn = (a, b) => a + b;
+    if (memory.length + 1 > limit) {
+      memory.splice(0, 1);
+      console.log(`Превышение памяти функции. Первый элемент удален`);  
+    }
 
-sumfn (3, 4)
-const mSum = memoize(sumfn, 10)
+    console.log(`В памяти ответ не найден, ответ раcсчитан функцией`);  
+    let functionOutput = fn(...args);
+    memory.push({arg: args, result: functionOutput});
+    return functionOutput;
+    
+  }
 
-mSum(3, 4)
-mSum(4, 5)
-mSum(3, 4)
-mSum(2, 4)
+}
+
+const mSum = memoize(sum, 5);
 
 
+console.log(mSum(1, 9));
+console.log(mSum(2, 8));
+console.log(mSum(3, 7));
+console.log(mSum(4, 6));
+console.log(mSum(4, 6));
